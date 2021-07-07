@@ -18,7 +18,7 @@ setup(){
         console.log(email.value, password.value)
     }
 
-    return {displayName,email,password,handleSubmit}
+    return {email,password,handleSubmit}
 }
 }
 </script>
