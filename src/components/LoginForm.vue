@@ -3,7 +3,7 @@
       <input type="email" required placeholder="email" v-model="email">
       <input type="password" required placeholder="password" v-model="password">
       <div class="error">{{error}}</div>
-      <button>Sign up</button>
+      <button>Login</button>
   </form>
 </template>
 
@@ -19,7 +19,7 @@ setup(props,context ){
     const {error,login} = useLogin()
 
     const handleSubmit = async () =>{
-        await login(email.login,password.value)
+        await login(email.value,password.value)
         if(!error.value){
         context.emit('login')
     }

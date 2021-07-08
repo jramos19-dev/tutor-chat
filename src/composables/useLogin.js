@@ -14,7 +14,7 @@ const login = async (email, password) => {
         return res
     } catch (err) {
         console.log(err.value)
-        error.value = 'Incorrect login '
+        error.value = err.message
     }
 }
 
