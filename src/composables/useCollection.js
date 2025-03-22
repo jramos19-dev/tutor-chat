@@ -1,23 +1,25 @@
 import { ref } from '@vue/reactivity'
-import { projectAuth, projectFirestore } from '../firebase/config'
+import { projectFirestore } from '../firebase/config'
+import { collection, addDoc } from 'firebase/firestore'
 
 //use collection is a composable to do something with the the collection
 //like add a new document
 
-const useCollection = (collection) => {
+const useCollection = (collectionName) => {
   const error = ref(null)
 
-  const addDoc = async (doc) => {
+  const addDocument = async (doc) => {
     error.value = null
 
     try {
-      await projectFirestore.collection(collection).add(doc)
+      const collectionRef = collection(projectFirestore, collectionName)
+      await addDoc(collectionRef, doc)
     } catch (err) {
       console.log(err.message)
-      error.value = 'could not send the messaGE'
+      error.value = 'could not send the message'
     }
   }
-  return { error, addDoc }
+  return { error, addDoc: addDocument }
 }
 
 export default useCollection

@@ -3,15 +3,16 @@ import Welcome from '../views/Welcome.vue'
 import Chatroom from '../views/Chatroom.vue'
 import { projectAuth } from '../firebase/config'
 
-//router guard is just a function
-//to protect the chatroom from unauthorized access
+// router guard is just a function
+// to protect the chatroom from unauthorized access
 const requireAuth = (to, from, next) => {
-  let user = projectAuth.currentUser
+  const user = projectAuth.currentUser
   console.log('current user ', user)
   if (!user) {
     next({ name: 'Welcome' })
+  } else {
+    next()
   }
-  next()
 }
 
 const routes = [

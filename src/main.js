@@ -9,13 +9,18 @@ import './assets/main.css'
 //making sure that firebase is connected to the app before letting the
 //routerguard handle the request to chatroom view
 import { projectAuth } from './firebase/config'
+import { onAuthStateChanged } from 'firebase/auth'
 
-let app
+// Create the app instance immediately
+const app = createApp(App)
 
-projectAuth.onAuthStateChanged(() => {
-  if (!app) {
-    app = createApp(App)
-      .use(router)
-      .mount('#app')
+// Use router
+app.use(router)
+
+// Wait for Firebase auth to initialize before mounting
+onAuthStateChanged(projectAuth, () => {
+  // Mount the app only once
+  if (!app._container) {
+    app.mount('#app')
   }
 })
